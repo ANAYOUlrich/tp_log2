@@ -27,7 +27,8 @@ class LogController extends Controller
         //validation des champs
         $this->validate($request, [
             'type' 	        => 'required',
-            'date_heure' 	=> 'required',
+            'date' 	=> 'required',
+            'time' 	=> 'required',
             'message' 	    => 'required',
             'projet_id' 	=> 'required',
         ]);
@@ -35,7 +36,7 @@ class LogController extends Controller
         //Enregistrement du log dans la base de données
         log::create([
             'type'          => $request->type,
-            'date_heure'    => $request->date_heure,
+            'date_heure'    => $request->date.' '.$request->time,
             'message'       => $request->message,
             'projet_id'     => $request->projet_id,
         ]);
@@ -55,15 +56,16 @@ class LogController extends Controller
     public function update(Request $request, $id){
         $item = log::findOrFail($id);
     	$this->validate($request, [
-            'type' 	        => 'required',
-            'date_heure' 	=> 'required',
+             'type' 	        => 'required',
+            'date' 	=> 'required',
+            'time' 	=> 'required',
             'message' 	    => 'required',
             'projet_id' 	=> 'required',
         ]);
 
         $item->update([
         	'type'          => $request->type,
-            'date_heure'    => $request->date_heure,
+            'date_heure'    => $request->date.' '.$request->time,
             'message'       => $request->message,
             'projet_id'     => $request->projet_id,
         ]);

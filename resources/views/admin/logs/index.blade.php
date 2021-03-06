@@ -52,7 +52,21 @@
 								{{$log->projet->libelle ?? '-'}}
 							</td>
 							<td>
-								{{$log->type ?? '-'}}
+								@if($log->type=="Info")
+			        			<span class="pcoded-badge label label-info">
+			        				{{$log->type ?? '-'}}
+			        			</span>
+			        			@elseif($log->type=="Erreur")
+			        			<span class="pcoded-badge label label-danger">
+			        				{{$log->type ?? '-'}}
+			        			</span>
+			        			@elseif($log->type=="Warning")
+			        			<span class="pcoded-badge label label-warning">
+			        				{{$log->type ?? '-'}}
+								</span>
+								@else
+								-
+			        			@endif
 							</td>
 							<td>
 								{{$log->date_heure ?? '-'}}

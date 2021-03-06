@@ -4,11 +4,11 @@
 <i class="feather icon-home bg-c-blue"></i>
 <div class="d-inline">
     @isset($projet)
-        <h5>Modifier Projet</h5>
-        <span>Modifier l'Projet : {{$projet->libelle}}</span>
+        <h5>Modifier Log</h5>
+        <span>Modifier l'Log : {{$projet->libelle}}</span>
     @else
-        <h5>Nouveau Projet</h5>
-        <span>Enregistrer un nouveau Projet</span>
+        <h5>Nouveau Log</h5>
+        <span>Enregistrer un nouveau Log</span>
     @endif
 </div>
 @endsection
@@ -20,15 +20,15 @@
     </li>
     @isset($projet)
         <li class="breadcrumb-item">
-            <a href="/admin/projet/index">Liste Projet</a> 
+            <a href="/admin/projet/index">Liste Log</a> 
         </li>
         <li class="breadcrumb-item">
-            <a href="#!">Modifer Projet</a> 
+            <a href="#!">Modifer Log</a> 
         </li>
         
     @else
         <li class="breadcrumb-item">
-            <a href="#!">Nouveau Projet</a> 
+            <a href="#!">Nouveau Log</a> 
         </li>
     @endif
     
@@ -49,17 +49,16 @@
         </div>
         <div class="card-block">
             @isset($projet)
-                <form method="POST" action="/admin/projet/update/{{$projet->id}}">
+                <form method="POST" action="/admin/log/update/{{$log->id}}">
             @else
-                <form method="POST" action="/admin/projet/store">
+                <form method="POST" action="/admin/log/store">
             @endif
             
                 <!-- libelle -->
                 {{csrf_field()}}
-
                 <div class="form-group row">
                     <div class="col-sm-6">
-                        <label class="col-sm-12 col-form-label">Projet</label>
+                        <label class="col-sm-12 col-form-label">Log</label>
                         <div class="col-sm-12">
 
                             <select name="projet_id" id="projet" class="form-control" value={{old('projet_id')?? $profile->projet_id ?? '' }}"">
@@ -69,8 +68,8 @@
                                         selected=""
                                     @endif
 
-                                    @isset($profile->projet_id)
-                                        @if($projet->id==$profile->projet_id)
+                                    @isset($log->projet_id)
+                                        @if($projet->id==$log->projet_id)
                                             selected=""
                                         @endif
                                     @endif
@@ -109,18 +108,18 @@
                     </div>
 
                     <div class="col-sm-6">
-                        <label class="col-sm-12 col-form-label">Date</label>
+                        <label class="col-sm-12 col-form-label">Date </label>
                         <div class="col-sm-12">
-                            <input type="date" class="form-control" name="date" value="{{old('date')?? $log->date_time ?? '' }}" required="">
+                            <input type="date" class="form-control" name="date" value="{{old('date')?? explode(' ',$log->date_heure)[0] ?? '' }}" required="">
                             @if( $errors->has('date'))
                                 <label class="col-sm-12 col-form-label text-danger">{{ $errors->first('date') }}</label>
                             @endif
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <label class="col-sm-12 col-form-label">Heure</label>
+                        <label class="col-sm-12 col-form-label">Heure {{$log->date_heure}}</label>
                         <div class="col-sm-12">
-                            <input type="time" class="form-control" name="time" value="{{old('time')?? $log->date_time ?? '' }}" required="">
+                            <input type="time" class="form-control" name="time" value="{{old('time')?? explode(' ',$log->date_heure)[1] ?? '' }}" required="">
                             @if( $errors->has('time'))
                                 <label class="col-sm-12 col-form-label text-danger">{{ $errors->first('time') }}</label>
                             @endif
